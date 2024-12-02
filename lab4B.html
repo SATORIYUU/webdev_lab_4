@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Books Collection</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 20px;
+    }
+    .book-details {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Books Collection</h1>
+  <div id="book-info">
+    <!-- Book details will be loaded here -->
+  </div>
+  <script>
+    // Load JSON data
+    fetch('books.json')
+      .then(response => response.json())
+      .then(data => {
+        const bookInfo = document.getElementById('book-info');
+        
+        // Display required details
+        const book1Title = `<p><strong>Title of the first book:</strong> ${data[0].title}</p>`;
+        const book2Author = `<p><strong>Author of the second book:</strong> ${data[1].author}</p>`;
+        
+        const allGenres = data.map(book => book.genres.join(', ')).join('; ');
+        const genresList = `<p><strong>Genres of all books:</strong> ${allGenres}</p>`;
+        
+        // Append to the container
+        bookInfo.innerHTML = book1Title + book2Author + genresList;
+      })
+      .catch(error => console.error('Error loading JSON:', error));
+  </script>
+</body>
+</html>
